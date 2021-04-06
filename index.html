@@ -2,52 +2,39 @@
 <html>
 
 <head>
-  <title>Title</title>
+  <title>Sort Analyzer</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <h1>Sort Analyzer</h1>
-  <p>Explore how long it takes various sort algorithms to sort different types of data...</p>
-  <hr>
+  <p>Explore how long it takes various sort algorithms to sort different sets of data.</p>
+  
+  <p> Select a data set to sort, select the sort algorithm to use and the click the Run Sort button and wait for the results.</p>
 
-  <h2>Bubble Sort</h2>
+  <hr>
   <p>
-    Select Data: <select id="bubble-data">
+    Select Data Set: <select id="data-select">
       <option value="random">Random Data</option>
       <option value="reversed">Reversed Data</option>
       <option value="nearly-sorted">Nearly Sorted Data</option>
       <option value="few-unique">Few Unique Data</option>
     </select>
-    <button id="bubble-btn">Sort with Bubble Sort</button>
   </p>
-  <p>Results: <span id="bubble-results">----</span></p>
-  <hr>
-
-  <h2>Selection Sort</h2>
   <p>
-    Select Data: <select id="selection-data">
-      <option value="random">Random Data</option>
-      <option value="reversed">Reversed Data</option>
-      <option value="nearly-sorted">Nearly Sorted Data</option>
-      <option value="few-unique">Few Unique Data</option>
+    Select Sort Algorithm: <select id="algorithm-select">
+      <option value="bubble">Bubble Sort</option>  
+      <option value="selection">Selection Sort</option>  
+      <option value="insertion">Insertion Sort</option>  
     </select>
-    <button id="selection-btn">Sort with Selection Sort</button>
   </p>
-  <p>Results: <span id="selection-results">----</span></p>
-  <hr>
-
-  <h2>Insertion Sort</h2>
+  
   <p>
-    Select Data: <select id="insertion-data">
-      <option value="random">Random Data</option>
-      <option value="reversed">Reversed Data</option>
-      <option value="nearly-sorted">Nearly Sorted Data</option>
-      <option value="few-unique">Few Unique Data</option>
-    </select>
-    <button id="insertion-btn">Sort with Insertion Sort</button>
+    <button id="run-btn">Run Sort</button>
   </p>
-  <p>Results: <span id="insertion-results">----</span></p>
+  
+  <h3>Results</h3>
+  <p>Data set sorted in <span id="sort-results">----</span> milliseconds.</p>
   <hr>
 
   <!-- Load JavaScript -->

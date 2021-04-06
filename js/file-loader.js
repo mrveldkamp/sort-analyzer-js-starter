@@ -1,5 +1,7 @@
 // File Loader Functions
 
+
+
 function initializeDataArrays() {
   // Initialize Global Data Arrays with text file contents
   fetch("data-files/random-values.txt")

@@ -5,84 +5,62 @@ let randomArray = [];
 let reversedArray = [];
 let nearlySortedArray = [];
 let fewUniqueArray = [];
+
+// The initializeDataArrays function is located in file-loader.js. It is used to initialize the Global Data Arrays declared above from the provided data files.
 initializeDataArrays();
 
 // HTML elements
-let bubbleSelectEl = document.querySelector("#bubble-data");
-let bubbleBtnEl = document.querySelector("#bubble-btn");
-let bubbleResultsEl = document.querySelector("#bubble-results");
-
-let selectionSelectEl = document.querySelector("#selection-data");
-let selectionBtnEl = document.querySelector("#selection-btn");
-let selectionResultsEl = document.querySelector("#selection-results");
-
-let insertionSelectEl = document.querySelector("#insertion-data");
-let insertionBtnEl = document.querySelector("#insertion-btn");
-let insertionResultsEl = document.querySelector("#insertion-results");
+let dataSetSelectEl = document.getElementById("data-select");
+let algorithmSelectEl = document.getElementById("algorithm-select");
+let runBtnEl = document.getElementById("run-btn");
+let sortResultsEl = document.getElementById("sort-results");
 
 // Event Listeners
-bubbleBtnEl.addEventListener("click", bubbleSortData);
-selectionBtnEl.addEventListener("click", selectionSortData);
-insertionBtnEl.addEventListener("click", insertionSortData);
+runBtnEl.addEventListener("click", processSort);
 
 // Event Functions
-function bubbleSortData() {
-    // Display results of the bubble sort on the selected data
-    bubbleResultsEl.innerHTML = performSelectedSort(bubbleSelectEl, bubbleSort);
-}
+function processSort() {
+  // To make sure we always start with the original data we should only run a sort algorithm on a copy of the original data.
+  let dataSetCopy = getCopyOfSelectedData(dataSetSelectEl.value);
+  console.log("dataSetCopy before sort:", dataSetCopy);
 
-function selectionSortData() {
-    // Display results of the selection sort on the selected data
-    selectionResultsEl.innerHTML = performSelectedSort(selectionSelectEl, selectionSort);
-}
+  // Sort dataSetCopy using selected sort alogirthm, time how long sort takes
+  let startTime;
+  let endTime;
+  let selectedAlgorithm = algorithmSelectEl.value;
+  if (selectedAlgorithm === "bubble") {
+    // Time Bubble Sort
+    startTime = performance.now();
+    bubbleSort(dataSetCopy);
+    endTime = performance.now();
+  } else if (selectedAlgorithm === "selection") {
+    // Time Selection Sort
+    startTime = performance.now();
+    selectionSort(dataSetCopy);
+    endTime = performance.now();
+  } else if (selectedAlgorithm === "insertion") {
+    // Time Insertion Sort
+    startTime = performance.now();
+    insertionSort(dataSetCopy);
+    endTime = performance.now();
+  }
 
-function insertionSortData() {
-    // Display results of the insertion sort on the selected data
-    insertionResultsEl.innerHTML = performSelectedSort(insertionSelectEl, insertionSort);
+  // Output Results
+  sortResultsEl.innerHTML = endTime - startTime;
+  console.log("dataSetCopy after sort:", dataSetCopy);
 }
 
 // Helper Functions
-function performSelectedSort(selectEl, sortFunction) {
-    // Make a copy of the selected data array
-    let arrayCopy;
-
-    let sortData = selectEl.value;
-    if (sortData == "random") {
-        arrayCopy = randomArray.slice();
-    } else if (sortData == "reversed") {
-        arrayCopy = reversedArray.slice();
-    } else if (sortData == "nearly-sorted") {
-        arrayCopy = nearlySortedArray.slice();
-    } else if (sortData == "few-unique") {
-        arrayCopy = fewUniqueArray.slice();
-    }
-
-    // Sort the array copy using the provided sort function
-    let startTime = performance.now();
-    sortFunction(arrayCopy);
-    let endTime = performance.now();
-
-    // Display Results of the Sort
-    console.log(arrayCopy);
-    return getResults(arrayCopy, startTime, endTime);
+function getCopyOfSelectedData(dataSetName) {
+  // Use data set name from select element to decide which array to copy and return.
+  if (dataSetName === "random") {
+    return randomArray.slice();
+  } else if (dataSetName === "reversed") {
+    return reversedArray.slice();
+  } else if (dataSetName === "nearly-sorted") {
+    return nearlySortedArray.slice();
+  } else if (dataSetName === "few-unique") {
+    return fewUniqueArray.slice();
+  }
 }
 
-
-function getResults(sortedArray, sTime, eTime) {
-    // Return message indicating success of sort and the time to sort
-    if (isArraySorted(sortedArray)) {
-        return `Array sorted in ${eTime - sTime} milliseconds.`;
-    } else {
-        return "Problem sorting array";
-    }
-}
-
-function isArraySorted(anArray) {
-    // Test if the provided array is sorted
-    for (let i = 0; i < anArray.length - 1; i++) {
-        if (anArray[i] > anArray[i + 1]) {
-            return false;
-        }
-    }
-    return true;
-}
