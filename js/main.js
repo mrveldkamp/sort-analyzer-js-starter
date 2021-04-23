@@ -6,7 +6,8 @@ let reversedArray = [];
 let nearlySortedArray = [];
 let fewUniqueArray = [];
 
-// The initializeDataArrays function is located in file-loader.js. It is used to initialize the Global Data Arrays declared above from the provided data files.
+// The initializeDataArrays function is located in file-loader.js. 
+// It is used to initialize the Global Data Arrays declared above from the provided data files.
 initializeDataArrays();
 
 // HTML elements
@@ -45,12 +46,12 @@ function processSort() {
     endTime = performance.now();
   }
 
-  // Output Results
+  // Output Time Results & Confirm Sort in console
   sortResultsEl.innerHTML = endTime - startTime;
   console.log("dataSetCopy after sort:", dataSetCopy);
 }
 
-// Helper Functions
+// Helper Function
 function getCopyOfSelectedData(dataSetName) {
   // Use data set name from select element to decide which array to copy and return.
   if (dataSetName === "random") {
@@ -63,4 +64,3 @@ function getCopyOfSelectedData(dataSetName) {
     return fewUniqueArray.slice();
   }
 }
-
